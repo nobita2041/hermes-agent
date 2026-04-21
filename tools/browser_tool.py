@@ -207,15 +207,15 @@ _headed_resolved = False
 def _get_headed() -> bool:
     """Return whether the local browser should run in headed (visible) mode.
 
-    Checks ``config["browser"]["headed"]`` first, then falls back to the
-    ``AGENT_BROWSER_HEADED`` environment variable.  Both accept truthy
-    values (``true``, ``1``, ``yes``).  Defaults to ``False`` (headless).
-    Only meaningful for local browser mode — cloud providers and Camofox
-    are unaffected.
+    Checks ``config["browser"]["headed"]`` first.  The ``AGENT_BROWSER_HEADED``
+    environment variable takes precedence over the config value when set.
+    Both accept truthy values (``true``, ``1``, ``yes``).  Defaults to
+    ``False`` (headless).  Only meaningful for local browser mode — cloud
+    providers and Camofox are unaffected.
     """
     global _cached_headed, _headed_resolved
     if _headed_resolved:
-        return _cached_headed or False
+        return _cached_headed
 
     _headed_resolved = True
     result = False
